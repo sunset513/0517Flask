@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grades</title>
+  </head>
+  <body>
+    <div class="grades-container">
+      <h2>Grades</h2>
+      <p>Welcome, teacher1!</p>
+      <form action="{{ url_for('add_grade')}}" method="POST">
+        <label for="student-id">Student ID:</label>
+        <input type="text" id="student-id" name="student-id" required/>
+        <br />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required/>
+        <br />
+        <label for="score">Score:</label>
+        <input type="text" id="score" name="score" required/>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+      <table>
+        <tr>
+          {% for grade in grades %}
+        </tr>
+        <tr>
+          <td>{{ grade.id }}</td>
+          <td>{{ grade.name }}</td>
+          <td>{{ grade.score }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      
+      <form action="{{ url_for('delete_grade')}}" method="POST">
+        <label for="deleted-student-id">Enter Student ID to delete:</label>
+        <input type="text" id="deleted-student-id" name="deleted-student-id" />
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  </body>
+</html>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+
+  .grades-container {
+    background-color: #fff;
+    padding: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: center;
+  }
+</style>
