@@ -13,9 +13,32 @@ def get_db():
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-@app.route('/', methods=['POST', 'GET'])
-def home():
+@app.route('/login', methods=['POST'])
+def login():
+    conn = get_db()
+    cursor = conn.cursor()
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        try:
+          cursor.execute('SELECT * FROM teachers WHERE name = ? AND password = ?', (username, int(password)))
+          user = cursor.fetchone()
+        except ValueError:
+          return 'Invalid password format'
+        except sqlite3.Error as e:
+          print(e)
+          return f"An error occurred: {e}"
+        if user:
+            return redirect('/grade')
+        else:
+            print(username)
+            print(password)
+            print(user)
+            return 'Invalid username or password'
     return render_template('index.html')
 
 @app.route('/grade', methods=['POST', 'GET'])
