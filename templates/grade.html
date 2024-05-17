@@ -9,6 +9,7 @@
     <p class="welcome-message">Welcome, {{ session['username'] }}</p>
     <div class="grades-container">
       <h2>Grades</h2>
+      <p>Add a new grade:</p>
       <form action="{{ url_for('add_grade')}}" method="POST">
         <label for="student-id">Student ID:</label>
         <input type="text" id="student-id" name="student-id" required />
@@ -39,6 +40,7 @@
         {% endfor %}
       </table>
 
+      <p>Delete a grade:</p>
       <form action="{{ url_for('delete_grade')}}" method="POST">
         <label for="deleted-student-id">Enter Student ID to delete:</label>
         <input type="text" id="deleted-student-id" name="deleted-student-id" />
@@ -69,7 +71,7 @@
     background-color: #fff;
     padding-right: 180px;
     padding-left: 180px;
-    padding-top:  120px;
+    padding-top: 420px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

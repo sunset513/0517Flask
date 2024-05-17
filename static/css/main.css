@@ -10,11 +10,12 @@ body {
 
 .login-container {
     background-color: #fff;
-    padding: 70px;
+    padding: 50px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 300px;
 }
 
 h2 {
@@ -46,4 +47,26 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+.error-message {
+    margin-bottom: 20px;
+    color: red;
+}
+
+.error-message .flashes {
+    list-style-type: none;
+    padding: 0;
+}
+
+.error-message .flashes li {
+    margin-bottom: 10px;
+}
+
+.error-message .flashes .error {
+    color: #e74c3c; /* Red color for error messages */
+}
+
+.error-message .flashes .success {
+    color: #2ecc71; /* Green color for success messages */
 }
