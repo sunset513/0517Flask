@@ -6,22 +6,28 @@
     <title>Grades</title>
   </head>
   <body>
+    <p class="welcome-message">Welcome, {{ session['username'] }}</p>
     <div class="grades-container">
       <h2>Grades</h2>
-      <p>Welcome, teacher1!</p>
       <form action="{{ url_for('add_grade')}}" method="POST">
         <label for="student-id">Student ID:</label>
-        <input type="text" id="student-id" name="student-id" required/>
+        <input type="text" id="student-id" name="student-id" required />
         <br />
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required/>
+        <input type="text" id="name" name="name" required />
         <br />
         <label for="score">Score:</label>
-        <input type="text" id="score" name="score" required/>
+        <input type="text" id="score" name="score" required />
         <br />
         <button type="submit">Submit</button>
       </form>
       <table>
+        <tr>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+
         <tr>
           {% for grade in grades %}
         </tr>
@@ -32,7 +38,7 @@
         </tr>
         {% endfor %}
       </table>
-      
+
       <form action="{{ url_for('delete_grade')}}" method="POST">
         <label for="deleted-student-id">Enter Student ID to delete:</label>
         <input type="text" id="deleted-student-id" name="deleted-student-id" />
@@ -42,6 +48,13 @@
   </body>
 </html>
 <style>
+  .welcome-message {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: bold;
+  }
+
   body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -54,7 +67,9 @@
 
   .grades-container {
     background-color: #fff;
-    padding: 100px;
+    padding-right: 180px;
+    padding-left: 180px;
+    padding-top:  120px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

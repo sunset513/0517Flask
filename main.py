@@ -1,6 +1,6 @@
-from flask import Flask, request, render_template,url_for,redirect,g
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, render_template,url_for,redirect,g,session
 from datetime import datetime
+
 
 import sqlite3
 
@@ -12,6 +12,7 @@ def get_db():
     return db
 
 app = Flask(__name__)
+app.secret_key = 'secret_key'
 
 @app.route('/')
 def index():
@@ -33,11 +34,9 @@ def login():
           print(e)
           return f"An error occurred: {e}"
         if user:
+            session['username'] = user['name']
             return redirect('/grade')
         else:
-            print(username)
-            print(password)
-            print(user)
             return 'Invalid username or password'
     return render_template('index.html')
 
@@ -51,14 +50,14 @@ def add_grade():
         id = request.form['student-id']
  
         try:
-            cursor.execute('INSERT INTO grades (id, name, score) VALUES (?, ?, ?)', (id,name, score))
+            cursor.execute('INSERT INTO grades (id, name, score) VALUES (?, ?, ?)', (int(id),name, score))
             conn.commit()
             return redirect('/grade')
         except Exception as e:
             print(e)
             return 'There was an issue adding your task'
     
-    cursor.execute('SELECT * FROM grades')
+    cursor.execute('SELECT * FROM grades ORDER BY id ASC')
     grades = cursor.fetchall()
     return render_template('grade.html', grades=grades)
 
@@ -69,7 +68,7 @@ def delete_grade():
     cursor = conn.cursor()
     if request.method == 'POST':
         id = request.form['deleted-student-id']
-        cursor.execute('DELETE FROM grades WHERE id = ?', (id,))
+        cursor.execute('DELETE FROM grades WHERE id = ?', (int(id),))
         conn.commit()
         return redirect('/grade')
     return render_template('grade.html')
